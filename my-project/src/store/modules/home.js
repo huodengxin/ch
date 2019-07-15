@@ -1,13 +1,32 @@
 import {homeFn} from '@/api/index'
-const fn=()=>{
+
+function mapData(data,codeData){
+   return codeData.map((el,key)=>{
+      el={
+         code:el
+      }
+      el.list=[]
+      data.forEach((item,index)=>{
+         if(item.Spelling.slice(0,1)==el.code){
+            el.list.push(item)
+         }
+      })
+      return el
+   })
+}
+
+function codeFn(data){
    let arr=[];
-   for(let i=0;i<26;i++){
-       arr.push(String.fromCharCode(65+i));
-   }
+   data.forEach((item,index)=>{
+      if(!arr.includes(item.Spelling.slice(0,1))){
+         arr.push(item.Spelling.slice(0,1))
+      }
+   })
    return arr
 }
+
 const state={
-    slideList:fn(),
+    slideList:[],
     homeData:[]
 }
 
@@ -25,8 +44,8 @@ const actions={
 //同步
 const mutations={
    dataMu(state,data){
-      state.homeData=[...data]
-      console.log(state.slideList,state.homeData)
+      state.slideList=codeFn(data)
+      state.homeData=mapData(data,state.slideList)
    }
 }
 
