@@ -6,5 +6,11 @@ export function homeFn(){
         method:'GET'
     })
 }
+export function drawerFn(params){
+    return request({
+        url:"/v2-car-getMakeListByMasterBrandId.html?MasterID="+params,
+        method:'GET'
+    })
+}
 
 

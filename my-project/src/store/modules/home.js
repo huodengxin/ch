@@ -1,4 +1,4 @@
-import {homeFn} from '@/api/index'
+import {homeFn,drawerFn} from '@/api/index'
 const fn=()=>{
    let arr=[];
    for(let i=0;i<26;i++){
@@ -8,7 +8,8 @@ const fn=()=>{
 }
 const state={
     slideList:fn(),
-    homeData:[]
+    homeData:[],
+    drawerData:[]
 }
 
 const getters = {
@@ -20,6 +21,12 @@ const actions={
       homeFn().then(res=>{
           commit('dataMu',res.data)
       })
+   },
+   //抽屉详情
+   drawerActions({commit},payLoad){
+    drawerFn(payLoad).then(res=>{
+        commit("drawerList",res.data)
+      })
    }
 }
 //同步
@@ -27,6 +34,11 @@ const mutations={
    dataMu(state,data){
       state.homeData=[...data]
       console.log(state.slideList,state.homeData)
+   },
+   //抽屉的数据
+   drawerList(state,drawerData){
+    state.drawerData=[...drawerData]
+    console.log("123456",state.drawerData)
    }
 }
 

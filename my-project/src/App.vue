@@ -8,6 +8,7 @@
 
 <script>
 import Home from '@/views/Home.vue'
+import Car from '@/views/Car.vue'
 export default {
   name: 'app',
   components: {
