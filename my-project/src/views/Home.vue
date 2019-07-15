@@ -6,7 +6,7 @@
               <div  key={item.id} ref='list'>
                 <h4>{{item.code}}</h4>
                 <div class="dlList">
-                    <dl v-for="(el) in item.list" :key="el.Spelling">
+                    <dl v-for="(el) in item.list" :key="el.Spelling" @click="gotoD(el.MasterID)">
                       <dt>
                         <img :src="el.CoverPhoto" alt="">
                       </dt>
@@ -17,10 +17,11 @@
             </div>
          </div>
       </main>
-      <ul class="slide">
+      <ul class="fixed">
         <li>#</li>
         <li v-for="(item,index) in slideList" :key="item" @click='scrollto(index)'>{{item}}</li>
       </ul>
+      <Drawer :class="{'active':flag}" @changeFlag='change'/>
   </div>
 </template>
 
@@ -28,10 +29,17 @@
 // @ is an alias to /src
 import {mapActions, mapState} from 'vuex'
 import BScroll from 'better-scroll'
+import Drawer from "../components/Drawer"
+
 export default {
   name: 'home',
+  data(){
+    return {
+      flag:false
+    }
+  },
   components: {
-    
+    Drawer
   },
   computed: {
     ...mapState({
@@ -45,15 +53,24 @@ export default {
   mounted() {
       this.bs=new BScroll(this.$refs.main,{
             probeType:3
-      }) 
+      })
   },
   methods: {
     ...mapActions({
-      dataActions:'home/dataActions'
+      dataActions:'home/dataActions',
+      drawerActions:'draw/drawerActions'
     }),
     scrollto(ind){
       let el=this.$refs.list
       this.bs.scrollToElement(el[ind],500)
+    },
+    gotoD(id){
+      console.log(id)
+      this.drawerActions(id)
+      this.flag=true;
+    },
+    change(){
+      this.flag=!this.flag
     }
   },
 }
@@ -96,7 +113,21 @@ export default {
       }
    }
 }
-.slide{
+@keyframes draw{
+  from{
+    right:-70%;
+  }
+  to{
+    right:0%;
+  }
+}
+.drawer-box{
+    &.active{
+      animation:draw 3s forwards;  
+    }
+}
+
+.fixed{
   width:30px;
   height:70%;
   text-align: center;
@@ -109,7 +140,7 @@ export default {
   list-style-type: none;
   transform: translate(-50%,-50%)
 }
-.slide li{
+.fixed li{
   flex:1;
 }
 </style>
