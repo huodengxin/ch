@@ -1,8 +1,8 @@
 <template>
-    <div class="drawer-box">
+    <div class="drawer-box"  @click="$emit('changeFlag')">
         <div v-for="(item,index) in drawerData" :key='index' class="box">
             <p class="title">{{item.GroupName}}</p>
-            <dl v-for="(val,index1) in item.GroupList" :key='index1'>
+            <dl v-for="(val,index1) in item.GroupList" :key='index1' @click.stop='jump()'>
                <dd>
                    <img :src="val.Picture" alt="">
                </dd>
@@ -11,9 +11,6 @@
                    <p class="price">{{val.DealerPrice}}</p>
                </dt>
             </dl>
-        </div>
-        <div class='null' @click="$emit('changeFlag')">
-
         </div>
     </div>
 </template>
@@ -37,7 +34,9 @@ export default {
         })
     },
     methods:{
-
+      jump(){
+         this.$router.push({name:'quotation'})
+      }
     },
     created(){
 
@@ -51,15 +50,13 @@ export default {
 .drawer-box{
     width: 70%;
     height: 100%;
+    overflow-y: auto;
     background:#fff;
-    position: absolute;
-    top:0;
-    right:-70%;
-    z-index: 9999;
-    // display: none;
+    box-sizing: border-box;
     .box{
         width: 100%;
         background: #fff;
+        box-sizing: border-box;
         .title{
             width: 100%;
             height: 20px;
@@ -68,6 +65,7 @@ export default {
             color:#717171;
             background: #f2f2f2;
             padding: 0 10px;
+            box-sizing: border-box;
         }
         dl{
             display: flex;
@@ -90,10 +88,6 @@ export default {
                 font-size: 15px;
             }
         }
-    }
-    .null{
-        width:100%;
-        height:100%;
     }
 }
 </style>
