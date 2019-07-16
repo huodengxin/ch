@@ -52,7 +52,8 @@ export default {
   },
   mounted() {
       this.bs=new BScroll(this.$refs.main,{
-            probeType:3
+            probeType:3,
+            click:true
       })
   },
   methods: {
@@ -65,7 +66,6 @@ export default {
       this.bs.scrollToElement(el[ind],500)
     },
     gotoD(id){
-      console.log(id)
       this.drawerActions(id)
       this.flag=true;
     },
@@ -122,8 +122,12 @@ export default {
   }
 }
 .drawer-box{
+  position: fixed;
+  top:0;
+  right: -70%;
+  z-index: 999;
     &.active{
-      animation:draw 3s forwards;  
+      animation:draw 1s forwards;  
     }
 }
 
@@ -138,7 +142,7 @@ export default {
   top:50%;
   right:0;
   list-style-type: none;
-  transform: translate(-50%,-50%)
+  transform: translate(-50%,-50%);
 }
 .fixed li{
   flex:1;

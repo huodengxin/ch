@@ -22,7 +22,6 @@ const mutations={
    //抽屉的数据
    drawerList(state,drawerData){
     state.drawerData=[...drawerData]
-    console.log("123456",state.drawerData)
    }
 }
 

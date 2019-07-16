@@ -1,8 +1,8 @@
 <template>
-    <div class="drawer-box">
+    <div class="drawer-box"  @click="$emit('changeFlag')">
         <div v-for="(item,index) in drawerData" :key='index' class="box">
             <p class="title">{{item.GroupName}}</p>
-            <dl v-for="(val,index1) in item.GroupList" :key='index1'>
+            <dl v-for="(val,index1) in item.GroupList" :key='index1' @click="gotoCar(val)">
                <dd>
                    <img :src="val.Picture" alt="">
                </dd>
@@ -12,13 +12,10 @@
                </dt>
             </dl>
         </div>
-        <div class='null' @click="$emit('changeFlag')">
-
-        </div>
     </div>
 </template>
 <script>
-import {mapState} from "vuex"
+import {mapState, mapActions} from "vuex"
 export default {
     props:{
 
@@ -37,7 +34,9 @@ export default {
         })
     },
     methods:{
-
+        gotoCar(val){
+            this.$router.push({name:'car',params:{id:val.SerialID}})
+        }
     },
     created(){
 
@@ -52,11 +51,7 @@ export default {
     width: 70%;
     height: 100%;
     background:#fff;
-    position: absolute;
-    top:0;
-    right:-70%;
-    z-index: 9999;
-    // display: none;
+    overflow-y:auto;
     .box{
         width: 100%;
         background: #fff;
@@ -68,6 +63,7 @@ export default {
             color:#717171;
             background: #f2f2f2;
             padding: 0 10px;
+            box-sizing: border-box;
         }
         dl{
             display: flex;
@@ -90,10 +86,6 @@ export default {
                 font-size: 15px;
             }
         }
-    }
-    .null{
-        width:100%;
-        height:100%;
     }
 }
 </style>
