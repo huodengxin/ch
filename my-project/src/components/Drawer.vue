@@ -12,6 +12,9 @@
                </dt>
             </dl>
         </div>
+        <div class='null' @click="$emit('changeFlag')">
+
+        </div>
     </div>
 </template>
 <script>
@@ -30,7 +33,7 @@ export default {
     },
     computed:{
         ...mapState({
-           drawerData:state=>state.home.drawerData 
+           drawerData:state=>state.draw.drawerData 
         })
     },
     methods:{
@@ -48,7 +51,12 @@ export default {
 .drawer-box{
     width: 70%;
     height: 100%;
-    background: #fff;
+    background:#fff;
+    position: absolute;
+    top:0;
+    right:-70%;
+    z-index: 9999;
+    // display: none;
     .box{
         width: 100%;
         background: #fff;
@@ -82,6 +90,10 @@ export default {
                 font-size: 15px;
             }
         }
+    }
+    .null{
+        width:100%;
+        height:100%;
     }
 }
 </style>

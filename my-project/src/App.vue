@@ -8,7 +8,6 @@
 
 <script>
 import Home from '@/views/Home.vue'
-import Car from '@/views/Car.vue'
 export default {
   name: 'app',
   components: {
@@ -28,6 +27,7 @@ html,body{
 #app {
    width:100%;
    height:100%;
+   font-size: 16px;
 }
 
 </style>

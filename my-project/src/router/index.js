@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../views/Home.vue'
-import Car from '../views/Car.vue'
 
 Vue.use(Router)
 
@@ -12,12 +11,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home,
-      children:[{
-        path:'/car',
-        name:'car',
-        component:Car
-      }]
+      component: Home
     }
   ]
 })
