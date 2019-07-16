@@ -30,10 +30,8 @@ function titleFn(arr){
         titleList.push(`${item.exhaust_str}/${item.max_power_str}${item.inhale_type}`)
     })
     titleList=Array.from(new Set(titleList))
-    console.log("val...",titleList)
     titleList.sort(sortNumber).sort(numberSort)
     titleList.map((val)=>{
-        console.log("val...",val.slice(5,8))
             list=[];
             arr.map((item)=>{
                 if(`${item.exhaust_str}/${item.max_power_str}${item.inhale_type}`===val){    
@@ -57,7 +55,6 @@ const state={
 const actions={
     carActions({commit},payLoad){
         carFn(payLoad).then(res=>{
-        console.log("res...",res.data.list)
            commit("carMutations",res.data)
         })
     }
