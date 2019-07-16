@@ -50,11 +50,14 @@ export default {
 .drawer-box{
     width: 70%;
     height: 100%;
+    overflow-y: auto;
     background:#fff;
     overflow-y:auto;
+    box-sizing: border-box;
     .box{
         width: 100%;
         background: #fff;
+        box-sizing: border-box;
         .title{
             width: 100%;
             height: 20px;

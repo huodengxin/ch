@@ -10,7 +10,7 @@
           <span>指导价 {{item.market_attribute.official_refer_price}}</span>
           <span>{{item.market_attribute.dealer_price_min}}起</span>
         </p>
-        <button :data-id="item.car_id" data-hover="hover">询问底价</button>
+        <button :data-id="item.car_id" data-hover="hover" @click='jump(item.car_id)'>询问底价</button>
       </li>
     </ul>
     </div>
@@ -30,8 +30,11 @@ export default {
       newList: state => state.car.newList
     })
   },
-  methods: {},
-  created() {},
+  methods: {
+    jump(carId){
+      this.$router.push({name:'quotation',query:{carId}})
+    }
+  },
   mounted() {}
 };
 </script>

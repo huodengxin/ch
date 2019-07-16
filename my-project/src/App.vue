@@ -1,19 +1,14 @@
 <template>
   <div id="app">
-    <!-- <router-link to="/">Home</router-link> | -->
     <router-view/>
-    <!-- <Home/>
-    <Car/> -->
   </div>
 </template>
 
 <script>
-import Home from '@/views/Home.vue'
-import Car from '@/views/Car.vue'
 export default {
   name: 'app',
   components: {
-    Home
+    
   }
 }
 </script>

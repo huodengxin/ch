@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+       <Drawer :class="{'active':flag}" @changeFlag='change'/>
        <main ref='main'>
          <div>
             <div v-for="(item,index) in homeData" :key='index'>
@@ -21,7 +22,6 @@
         <li>#</li>
         <li v-for="(item,index) in slideList" :key="item" @click='scrollto(index)'>{{item}}</li>
       </ul>
-      <Drawer :class="{'active':flag}" @changeFlag='change'/>
   </div>
 </template>
 
@@ -79,6 +79,7 @@ export default {
 .home{
    width:100%;
    height:100%;
+   position: relative;
    main{
       width:100%;
       height:100%;
@@ -122,17 +123,17 @@ export default {
   }
 }
 .drawer-box{
-  position: fixed;
-  top:0;
-  right: -70%;
-  z-index: 999;
+    position: fixed;
+    top:0;
+    right:-70%;
+    z-index: 9999;
     &.active{
       animation:draw 1s forwards;  
     }
 }
 
 .fixed{
-  width:30px;
+  width:20px;
   height:70%;
   text-align: center;
   display: flex;
@@ -146,6 +147,8 @@ export default {
 }
 .fixed li{
   flex:1;
+  color:#666;
+  font-size: 14px;
 }
 </style>
 

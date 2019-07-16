@@ -10,7 +10,7 @@
           <p class="money">{{dealer_price}}</p>
           <p class="price">指导价 {{official_refer_price}}</p>
         </div>
-        <div class="right">询问底价</div>
+        <div class="right" @click='jump'>询问底价</div>
       </div>
       <div class="car-list">
         <classifyYear/>
@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="footer">
-      <p>询问底价</p>
+      <p @click='jump'>询问底价</p>
       <p>本地经销商为你报价</p>
     </div>
   </div>
@@ -45,11 +45,16 @@ export default {
   },
   methods: {
     ...mapActions({
-      carActions: "car/carActions"
-    })
+      carActions: "car/carActions",
+      cityActions:'quotation/cityActions'
+    }),
+    jump(){
+      this.$router.push({name:'quotation'})
+    }
   },
   created() {
     this.carActions(this.$route.params.id);
+    this.cityActions()
   },
   mounted() {}
 };
