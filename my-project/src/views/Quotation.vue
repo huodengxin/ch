@@ -25,7 +25,7 @@
                     </li>
                      <li>
                         <span>城市</span>
-                        <span class="city">北京</span>
+                        <span class="city" @click='getAddress'>{{CityName}}</span>
                     </li>
                 </ul>
                 <div class="quotation">
@@ -45,35 +45,54 @@
                 询最低价
             </button>
         </footer>
+        <my-City v-show="addressFlag" :addressArr='addressList' :carId='$route.query.carId'/>
         <my-Mask v-show="showMask" @emitMack='emitshowMask'/>
     </div>
 </template>
 <script>
 import myMask from '../components/Mask'
+import myCity from '../components/City'
 import QuotationList from '../components/QuotationList'
-import {mapActions,mapState} from 'vuex'
+import {mapActions,mapState,mapMutations} from 'vuex'
 export default {
     data(){
         return {
             flag:false,
-            showMask:false
+            showMask:false,
+            addressFlag:false
         }
     },
     components:{
         myMask,
-        QuotationList
+        QuotationList,
+        myCity
     },
     computed:{
         ...mapState({
             quotationData:state=>state.quotation.quotationData,
-            cityId:state=>state.quotation.cityId
+            cityId:state=>state.quotation.cityId,
+            addressList:state=>state.quotation.addressList,
+            CityName:state=>state.quotation.CityName
         })
     },
     created(){
         this.dataActions({
-            carId:this.$route.query.carId,
+            carId:this.$route.params.carId,
             cityId:this.cityId,
             _1563275336259:null
+        }),
+        this.addressActions(),
+        this.$bus.$on('getAddressFn',(CityID,CityName)=>{
+            this.addressFlag=false
+            this.cityMu({
+                CityID:CityID,
+                CityName:CityName
+            })
+            this.dataActions({
+                carId:this.$route.params.carId,
+                cityId:CityID,
+                _1563275336259:null
+            })
         })
     },
     mounted(){
@@ -81,8 +100,12 @@ export default {
     },
     methods:{
          ...mapActions({
-             dataActions:'quotation/dataActions'
+             dataActions:'quotation/dataActions',
+             addressActions:'quotation/addressActions'
          }),
+        ...mapMutations({
+            cityMu:'quotation/cityMu'
+        }),
         handleScroll () {
              var scrollTop = this.$refs.main.scrollTop;
             if(scrollTop+30<=350){
@@ -96,6 +119,9 @@ export default {
         },
         emitshowMask(){
             this.showMask=false
+        },
+        getAddress(){
+           this.addressFlag=true;
         }
     }
 }
@@ -142,20 +168,20 @@ export default {
                 height:100px;
                 display: flex;
                 box-sizing: border-box;
-                padding:0px 30px 0px 10px;
+                padding:10px 30px 0px 10px;
                 position: relative;
                 &:after{
                     content: "";
-                        display: inline-block;
-                        padding-top: .16rem;
-                        padding-right: .16rem;
-                        border-top: 2px solid #ccc;
-                        border-right: 2px solid #ccc;
-                        -webkit-transform: rotate(45deg);
-                        transform: rotate(45deg);
-                        position: absolute;
-                        right: .26rem;
-                        top: .9rem;
+                    display: inline-block;
+                    padding-top: .16rem;
+                    padding-right: .16rem;
+                    border-top: 2px solid #ccc;
+                    border-right: 2px solid #ccc;
+                    -webkit-transform: rotate(45deg);
+                    transform: rotate(45deg);
+                    position: absolute;
+                    right: .26rem;
+                    top: .9rem;
                 }
                 img{
                     width:115px;
@@ -163,13 +189,21 @@ export default {
                     border:1px solid #eee;
                     margin-right: 10px;
                 }
-                h5{
-                    font-size: 16px;
-                    font-weight: 400;
-                }
-                p{
-                    font-size: 17px;
-                }
+               dd{
+                   height:90%;
+                   display: flex;
+                   flex-direction:column;
+                    h5{
+                        font-size: 16px;
+                        font-weight: 400;
+                        flex:1;
+                        padding-top: 10px;
+                    }
+                    p{
+                        font-size: 17px;
+                        flex:1;
+                    }
+               }
             }
         }
     }

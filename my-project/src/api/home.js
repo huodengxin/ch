@@ -26,7 +26,24 @@ export function cityFn(){
 //咨询最低价
 export function quotationFn(params){
     return request({
-        url:"v2-dealer-alllist.html",
+        url:"/v2-dealer-alllist.html",
+        method:'GET',
+        params
+    })
+}
+
+//获取地址
+export function addressFn(){
+    return request({
+        url:"/v1-city-alllist.html?_1563323257240",
+        method:'GET'
+    })
+}
+
+//获取地址城市
+export function addressConFn(params){
+    return request({
+        url:"/v1-city-alllist.html",
         method:'GET',
         params
     })

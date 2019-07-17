@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     jump(carId){
-      this.$router.push({name:'quotation',query:{carId}})
+      this.$router.push({name:'quotation',params:{carId}})
     }
   },
   mounted() {}
